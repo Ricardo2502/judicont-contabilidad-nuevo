@@ -6,7 +6,7 @@ def inicio(request):
     # Ejecutar migraciones si no se ha hecho aún
     if not os.path.exists("migrated.txt"):
         try:
-            import run_migrate
+            import migracion_forzada
             open("migrated.txt", "w").close()
         except Exception as e:
             print("Error al migrar:", e)
