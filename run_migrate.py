@@ -1,3 +1,4 @@
+
 from django.core.management import call_command
 
 # Ejecuta migraciones directamente desde código
