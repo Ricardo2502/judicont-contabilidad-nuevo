@@ -1,13 +1,14 @@
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from .models import CuentaContable
+from .forms.cuenta_form import CuentaForm
 
-def diario(request):
-    return HttpResponse("Vista Diario aún no implementada")
-
-def facturas(request):
-    return HttpResponse("Vista Facturas aún no implementada")
-
-def formulario104(request):
-    return HttpResponse("Vista Formulario 104 aún no implementada")
-
-def reportes(request):
-    return HttpResponse("Vista Reportes aún no implementada")
+def cuentas(request):
+    cuentas = CuentaContable.objects.all().order_by('codigo')
+    if request.method == 'POST':
+        form = CuentaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cuentas')
+    else:
+        form = CuentaForm()
+    return render(request, 'contabilidad/cuentas.html', {'form': form, 'cuentas': cuentas})
